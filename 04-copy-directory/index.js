@@ -1,19 +1,21 @@
 const fs = require('fs'); 
+const newDir = __dirname + '/files-copy/';
+const oldDir = __dirname + '/files/';
 
 //fs.rm(__dirname + '/files-copy/', { recursive: true }, () => console.log('done'));
 
-fs.rmdir(__dirname + '/files-copy/', { recursive: true }, function(error, files) {
-  console.log('deleted /files-copy/');
-  fs.readdir(__dirname + '/files/', function(error, files) {
-    fs.mkdir(__dirname + '/files-copy/', { recursive: true }, function(error) {
-    console.log('created /files-copy/');
+fs.rmdir(newDir, { recursive: true }, function(error, files) {
+  // console.log('deleted /files-copy/');
+  fs.readdir(oldDir, function(error, files) {
+    fs.mkdir(newDir, { recursive: true }, function(error) {
+    // console.log('created /files-copy/');
     files.forEach(function(error, file) {    
-      fs.stat(__dirname + '/files/' + files[file], function(error, stats) {
-        console.log('created ' + files[file]);
+      fs.stat(oldDir + files[file], function(error, stats) {
+        // console.log('created ' + files[file]);
         if (!stats.isDirectory()) {
-          fs.copyFile(__dirname + '/files/' + files[file], __dirname + '/files-copy/' + files[file], callback);
+          fs.copyFile(oldDir + files[file], newDir + files[file], callback);
         } else {
-          fs.mkdir(__dirname + '/files-copy/' + files[file], { recursive: true }, callback);
+          fs.mkdir(newDir + files[file], { recursive: true }, callback);
         }
       });
     });    
