@@ -2,9 +2,7 @@ const fs = require('fs');
 const newDir = __dirname + '/files-copy/';
 const oldDir = __dirname + '/files/';
 
-//fs.rm(__dirname + '/files-copy/', { recursive: true }, () => console.log('done'));
-
-fs.rmdir(newDir, { recursive: true }, function(error, files) {
+fs.rm(newDir, { recursive: true }, function(error, files) {
   // console.log('deleted /files-copy/');
   fs.readdir(oldDir, function(error, files) {
     fs.mkdir(newDir, { recursive: true }, function(error) {
